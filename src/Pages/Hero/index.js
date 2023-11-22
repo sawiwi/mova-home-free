@@ -4,7 +4,7 @@ const Hero = () => {
   const color = 'bg-[#070707]';
   return (
     <>
-      <div id='HeroSectionScroll' className={`min-h-[616px] ${color} pt-28 xl:pt-40`}>
+      <div id='HeroSectionScroll' className={`min-h-[616px] ${color} pt-28 xl:pt-40 bg-black`}>
         <div className={`px-4 py-8 max-w-[1276px] mx-auto ${color}`}>
           <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-y-10 items-stretch">
             <div className="flex flex-col rounded-md shadow-sm text-white justify-center">
