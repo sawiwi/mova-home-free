@@ -9,10 +9,10 @@ const navigation = [
   { name: 'Inicio', href: 'HeroSectionScroll', buttonStyle: false  },
   { name: 'Quiénes Somos', href: 'AboutSectionScroll', buttonStyle: false  },
   { name: 'Propiedades', href: 'PropertiesSectionScroll', buttonStyle: false  },
-  { name: 'Venta', href: 'ServicesSectionScroll', buttonStyle: false  },
-  { name: 'Arriendo', href: 'ServicesSectionScroll', buttonStyle: false  },
-  { name: 'Confianos tu propiedad', href: 'ServicesSectionScroll', buttonStyle: false  },
-  { name: 'Contáctanos', href: '#', buttonStyle: true  },
+  // { name: 'Venta', href: 'ServicesSectionScroll', buttonStyle: false  },
+  // { name: 'Arriendo', href: 'ServicesSectionScroll', buttonStyle: false  },
+  // { name: 'Confianos tu propiedad', href: 'ServicesSectionScroll', buttonStyle: false  },
+  { name: 'Contáctanos', href: '#', buttonStyle: false  },
   { name: 'Intranet', href: '#', buttonStyle: true },
 ] 
 
@@ -29,7 +29,7 @@ const Navbar = () => {
                   <img
                     className="h-24 w-auto cursor-pointer"
                     src={Logo}
-                    alt="CYVM"
+                    alt="movahome"
                   />
                 </div>
                 <div className="hidden sm:ml-6 lg:block">
