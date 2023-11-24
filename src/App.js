@@ -14,7 +14,6 @@ function App() {
         <Hero/>
         <About/>
         <Properties/>
-
       </Layout>
     </Fragment>
 
