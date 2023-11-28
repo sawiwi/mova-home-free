@@ -1,7 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
+import { companyForm } from "../../constants/company";
+import EmailSend from "../../services/email/api-email";
 
 
 const FormContact = ()=>{
+
+  const [serverErrorMsg, setServerErrorMsg] = useState({
+		status200: "",
+		status500: "",
+		status400: "",
+		status404: "",
+		alreadyData: {
+			email: "",
+		},
+	});
+
+  const sendData = {
+    name:"",
+    email:"",
+    phone:"",
+    subject:"",
+    message:"",
+    termsAndConditions: true,
+    companyId:companyForm.id,
+    meetingData:'No indica',
+    lastName: 'No indica',
+  }
+
+
+
+const [formData, setFormData] = useState({sendData});
+
+const handleInputChange = (e) =>{
+  const inputChange = {...formData, [e.target.name]: e.target.value};
+  setFormData(inputChange);
+}
+
+const onFormSubmit = async (submitData) =>{
+  const {name, email, phone, subject, message} = submitData;
+  let submittedData = {
+    name: name,
+    email: email,
+    phone: phone,
+    subject :subject,
+    message: message
+  }
+
+  try{
+    await EmailSend.postEmail(submittedData);
+    setServerErrorMsg({
+      status200:"Enviado correctamente"
+    });
+    console.log("mensaje enviado")
+    resetForm()
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+
+  }catch(error){
+    console.log(error)
+    if(error.response.data.statusCode === 500){
+      setServerErrorMsg({
+        status500: `Status (${error.response.data.statusCode}): Error de servidor`,
+      });
+      return;
+    }
+    if(error.response.data.statusCode === 400){
+      setServerErrorMsg({
+        status400: `Status (${
+          error.response?.data?.statusCode
+        }): Los campos ${error.response?.data?.message.map((msg) => msg)} deben ser completados`,
+      });
+      return;
+    }
+  }
+
+}
+
+const resetForm = () =>{
+  setFormData({
+    name:"",
+    email:"",
+    phone:"",
+    subject:"",
+    message:"",
+    lastName: '',
+  })
+}
+
     return(
         <div className="bg-gray-200 p-4 xl:p-2 xl:py-5 xl:px-6">
             <div className="text-center mb-3">
@@ -12,7 +98,7 @@ const FormContact = ()=>{
             <div className="text-center mb-2">
                 <p>Envienos un mensaje y nos contactaremos a la brevedad.</p>
             </div>
-            <form className="py-3">
+            <form className="py-3" onSubmit={onFormSubmit}>
             <div className="w-full md:w-6/6 flex justify-center items-center flex-col mb-2">
                 <input
                 type="text"
@@ -20,7 +106,8 @@ const FormContact = ()=>{
                 id="name"
                 placeholder="Su Nombre*"
                 className="w-full p-3 rounded-md bg-gray-100 text-base text-gray-900 placeholder:text-black placeholder:font-normal outline-none"
-                //   onChange={handlePhoneChange}
+                onChange={handleInputChange}
+                value={formData?.name}
                 />
             </div>
             <div className="w-full md:w-6/6 flex justify-center items-center flex-col mb-2">
@@ -30,7 +117,9 @@ const FormContact = ()=>{
                 id="mail"
                 placeholder="Su Email*"
                 className="w-full p-3 rounded-md bg-gray-100 text-base text-gray-900 placeholder:text-black placeholder:font-normal outline-none"
-                //   onChange={handlePhoneChange}
+                onChange={handleInputChange}
+                value={formData?.email}
+
                 />
             </div>
             <div className="w-full md:w-6/6 flex justify-center items-center flex-col mb-2">
@@ -40,7 +129,8 @@ const FormContact = ()=>{
                 id="phone"
                 placeholder="Teléfono o Celular"
                 className="w-full p-3 rounded-md bg-gray-100 text-base text-gray-900 placeholder:text-black placeholder:font-normal outline-none"
-                //   onChange={handlePhoneChange}
+                onChange={handleInputChange}
+                value={formData?.phone}
                 pattern="[0-9]{9}"
                 maxLength="9"
                 />
@@ -52,7 +142,8 @@ const FormContact = ()=>{
                 id="subject"
                 placeholder="Asunto"
                 className="w-full p-3 rounded-md bg-gray-100 text-base text-gray-900 placeholder:text-black placeholder:font-normal outline-none"
-                //   onChange={handlePhoneChange}
+                onChange={handleInputChange}
+                value={formData?.subject}
                 />
             </div>
             <div className="max-sm:py-2 mb-2">
@@ -62,13 +153,12 @@ const FormContact = ()=>{
                 placeholder="Mensaje..."
                 name="message"
                 id="message"
-                //   value={formData?.message}
-                //   onChange={handleMessageChange}
+                onChange={handleInputChange}
+                value={formData?.message}
                 ></textarea>
             </div>
             <div className="flex justify-center items-center">
           <button
-            value="Send"
             type="submit"
             className="bg-[#ff8017]/60 rounded-md border border-[#ff8017] text-white px-6 py-2 hover:bg-[#ff8017]"
           >
