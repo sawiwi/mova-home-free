@@ -1,4 +1,4 @@
 export const realtorData = {
-    email: 'fabians@accionpanal.com',
-    phone:'xxxxxxx'
+    email: 'fabians@gmail.com',
+    phone:'9 xxxxxxx'
   };

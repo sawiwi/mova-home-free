@@ -7,7 +7,7 @@ const Properties = () => {
   const [isList, setList] = useState(false);
 
   return (
-    <div id='PropertiesSectionScroll' className='min-h-screen'>
+    <div id='PropertiesSectionScroll' className='min-h-screen py-16'>
       <div className='max-w-[540px] md:max-w-[720px] lg:max-w-[1200px] w-full mx-auto'>
         <div className='py-5 px-3  mb-4 bg-white w-full'>
           <div className="flex flex-wrap flex-row justify-between xl:justify-between items-center">
