@@ -89,7 +89,7 @@ const resetForm = () =>{
 }
 
     return(
-        <div className="bg-gray-200 p-4 xl:p-2 xl:py-5 xl:px-6">
+        <div className="bg-gray-200 p-4 xl:p-2 xl:py-5 xl:px-6" id="ContactSectionScroll">
             <div className="text-center mb-3">
                 <h2 className="font-semibold text-2xl mb-2">Contáctanos</h2>
                 <hr className=" mb-2 w-18 mx-20 text-primary-default h-[2.5px] border-none bg-primary-default"></hr>

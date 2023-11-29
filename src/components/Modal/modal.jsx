@@ -45,7 +45,7 @@ const Modal = () => {
         <button
           type="button"
           onClick={openModal}
-          className="hover:text-white bg-white hover:bg-primary-default px-3 py-2 rounded-lg transition-colors duration-300"
+          className="hover:text-white  bg-primary-default/60 hover:bg-primary-default px-3 py-2 rounded-lg transition-colors duration-300"
         >
           Ver Detalle
         </button>

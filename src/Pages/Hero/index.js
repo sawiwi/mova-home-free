@@ -7,7 +7,6 @@ const Hero = () => {
     <>
       <div id='HeroSectionScroll'>
         <HeroBanner/>
-
       </div>
       
     </>

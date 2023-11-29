@@ -12,7 +12,7 @@ const navigation = [
   // { name: 'Venta', href: 'ServicesSectionScroll', buttonStyle: false  },
   // { name: 'Arriendo', href: 'ServicesSectionScroll', buttonStyle: false  },
   // { name: 'Confianos tu propiedad', href: 'ServicesSectionScroll', buttonStyle: false  },
-  { name: 'Contáctanos', href: '#', buttonStyle: false  },
+  { name: 'Contáctanos', href: 'ContactSectionScroll', buttonStyle: false  },
   { name: 'Intranet', href: '#', buttonStyle: true },
 ] 
 
