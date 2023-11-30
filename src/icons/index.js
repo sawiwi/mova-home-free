@@ -12,6 +12,10 @@ import {
   BsFillCalendarCheckFill,
 } from 'react-icons/bs';
 
+import {
+  AiOutlineWhatsApp,
+} from 'react-icons/ai';
+
 import { GiHomeGarage } from 'react-icons/gi';
 
 export const iconsList = {
@@ -22,4 +26,5 @@ export const iconsList = {
   BsFillCalendarCheckFill,
   GiHomeGarage,
   BsCheckCircle,
+  AiOutlineWhatsApp,
 }
