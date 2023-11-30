@@ -1,14 +1,22 @@
 import React,{ useState } from 'react'
 import PropertiesCard from '../../components/Cards/propertiesCard'
 import Pagination from '../../components/Pagination/pagination'
-import ListCard from '../../components/Cards/ListCard'
+import ListCard from '../../components/Cards/ListCard';
+
+import FilterProperties from './components/filterprop';
 
 const Properties = () => {
   const [isList, setList] = useState(false);
 
   return (
-    <div id='PropertiesSectionScroll' className='min-h-screen py-16'>
-      <div className='max-w-[540px] md:max-w-[720px] lg:max-w-[1200px] w-full mx-auto'>
+    <div id='PropertiesSectionScroll' className='min-h-screen'>
+      <FilterProperties/>
+      <div className='max-w-[540px] md:max-w-[720px] lg:max-w-[1200px] w-full mx-auto py-16'>
+        <div className='text-center'>
+          <h1 className='text-3xl font-semibold text-[#2e2e2e] py-2'>Propiedades</h1>
+          <hr className='w-24 h-1 mx-auto bg-primary-default my-1 mb-2'/>
+          <hr className='w-16 h-1 mx-auto bg-primary-default my-1' />
+        </div>
         <div className='py-5 px-3  mb-4 bg-white w-full'>
           <div className="flex flex-wrap flex-row justify-between xl:justify-between items-center">
             <div className="flex flex-row justify-start">
