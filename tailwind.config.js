@@ -6,13 +6,13 @@ module.exports = {
       colors:{
         primary:{
           default: "#f7be81",
-          secundary: "ffd488",
+          secundary: "#ffd488",
         },
         secondary: {
           default: "#2e2e2e"
         },
         ordinary: {
-          default: "##74777b"
+          default: "#74777b"
         }
       }
     },
