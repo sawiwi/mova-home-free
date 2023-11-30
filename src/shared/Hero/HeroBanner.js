@@ -45,8 +45,8 @@ const HeroBanner = () => {
                                     />
                                     <h1 className="text-[#f3f3f3] font-bold text-lg xl:text-2xl mt-2  xl:mt-8 xl:ml-20 drop-shadow-md">Maria Ojeda Silvestre.</h1>
                                     <br></br>
-                                    <Link  to="AboutSectionScroll" smooth="true" duration={200} offset={-150}
-                                      className="drop-shadow-md bg-[#ff8017]/60 rounded-md border border-[#ff8017] text-white px-6 py-2  w-32 hover:bg-[#ff8017] cursor-pointer"
+                                    <Link  to="AboutSectionScroll" smooth="true" duration={700} offset={-150}
+                                      className="drop-shadow-md bg-[#ff8017]/60 rounded-md border border-[#ff8017] text-white px-6 py-2 xl:ml-20  w-32 hover:bg-[#ff8017] cursor-pointer"
                                       >
                                         <span  pan className=" text-lg font-medium capitalize mx-auto max-h-10">
                                           Ver más
