@@ -28,8 +28,8 @@ const {AiOutlineWhatsApp, FaLinkedin } = iconList
             <hr className="w-12 text-primary-default h-[2.1px] border-none bg-primary-default"></hr>
             <ul className='list-none'>
               <li className='my-4'><a href=''>Inicio</a></li>
-              <li className='my-4'><a href=''>Quiénes Somos</a></li>
               <li className='my-4'><a href=''>Propiedades</a></li>
+              <li className='my-4'><a href=''>Sobre mí</a></li>
               <li className='my-4'><a href=''>Contáctanos</a></li>
               <li className='my-4'><a href=''>Intranet</a></li>
             </ul>

@@ -8,7 +8,7 @@ import Logo from '../../assets/img/logo/logoHead.png'
 const navigation = [
   { name: 'Inicio', href: 'HeroSectionScroll', buttonStyle: false  },
   { name: 'Propiedades', href: 'PropertiesSectionScroll', buttonStyle: false  },
-  { name: 'Quiénes Somos', href: 'AboutSectionScroll', buttonStyle: false  },
+  { name: 'Sobre mí', href: 'AboutSectionScroll', buttonStyle: false  },
   // { name: 'Venta', href: 'ServicesSectionScroll', buttonStyle: false  },
   // { name: 'Arriendo', href: 'ServicesSectionScroll', buttonStyle: false  },
   // { name: 'Confianos tu propiedad', href: 'ServicesSectionScroll', buttonStyle: false  },
