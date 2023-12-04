@@ -6,16 +6,19 @@ const PropertiesServices = {
   getProperties: async (
     currentPage,
     limit = paginationTopLimit.limit,
-    statusId = company.statusId,
-    companyId = company.companyId
+    operation = '',
+    typeProperty = ''
   ) => {
+    let operationStr = operation ? '&operationType='+operation: '';
+    let propertyStr = typeProperty ? '&typeOfProperty='+typeProperty: '';
+
     const response = await api.get(
-      `properties?page=${currentPage}&limit=${limit}&statusId=${statusId}&companyId=${companyId}`
+      `properties?page=${currentPage}&limit=${limit}&statusId=${company.statusId}&companyId=${company.companyId}${operationStr}${propertyStr}`
     );
 
     // respuesta para unidades nuevas
     const responseNewUnities = await api.get(
-      `properties?page=${currentPage}&limit=${limit}&statusId=${statusId}&companyId=${companyId}&operationType=venta`
+      `properties?page=${currentPage}&limit=${limit}&statusId=${company.statusId}&companyId=${company.companyId}&operationType=venta`
     );
 
     return {

@@ -18,18 +18,19 @@ const Properties = () => {
     valueUf,
     page,
     totalPages,
-    handlePageChange
+    handlePageChange,
+    handleFilterSubmit
   } = contextData;
 
   const [isList, setList] = useState(false);
 
   useEffect(() => {
-    fetchAllProperties(page, paginationTopLimit.limit, company.statusId, company.companyId);
+    fetchAllProperties(page, paginationTopLimit.limit);
   }, []);
 
   return (
     <div id='PropertiesSectionScroll' className='min-h-screen'>
-      <FilterProperties/>
+      <FilterProperties onFilterSubmit={handleFilterSubmit}/>
       <div className='max-w-[540px] md:max-w-[720px] lg:max-w-[1200px] w-full mx-auto py-16'>
         <div className='text-center'>
           <h1 className='text-3xl font-semibold text-[#2e2e2e] py-2'>Propiedades</h1>

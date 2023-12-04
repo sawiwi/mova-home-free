@@ -12,9 +12,11 @@ const PropertiesProvider = ({ children }) => {
   const [totalPages, setTotalPages] = useState(0);
   const [totalItems, setTotalItems] = useState('');
 
+  const [filterOperation, setFilterOperation] = useState('');
+  const [filterTypeProperty, setFilterTypeProperty] = useState('');
 
-  const fetchAllProperties = async (currentPage, limit, statusId, companyId) => {
-    const { data, meta } = await PropertiesServices.getProperties(currentPage,limit,statusId,companyId);
+  const fetchAllProperties = async (currentPage, limit,operation,typeProperty) => {
+    const { data, meta } = await PropertiesServices.getProperties(currentPage,limit,operation,typeProperty);
     setProperties(data);
     setMetaProperties(meta);
 
@@ -34,8 +36,15 @@ const PropertiesProvider = ({ children }) => {
   const handlePageChange = (newPage) => {
     setProperties([]);
     setPage(newPage);
-    fetchAllProperties(newPage, 9, 1, 1);
+    fetchAllProperties(newPage, 9, filterOperation, filterTypeProperty);
   };
+
+  const handleFilterSubmit = (operation,typeProperty) => {
+    setProperties([]);
+    setFilterTypeProperty(typeProperty);
+    setFilterOperation(operation);
+    fetchAllProperties(page, 9, operation, typeProperty);
+  }
 
   return (
     <PropertiesContext.Provider
@@ -48,7 +57,8 @@ const PropertiesProvider = ({ children }) => {
           page,
           totalPages,
           totalItems,
-          handlePageChange
+          handlePageChange,
+          handleFilterSubmit
         },
       }}
     >
