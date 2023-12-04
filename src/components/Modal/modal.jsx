@@ -1,26 +1,20 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import ButtonClose from '../buttons/ButtonClose'
 import ImageGallery from 'react-image-gallery';
 import { iconsList } from '../../icons';
+import {
+  parseToCLPCurrency,
+  parseToDecimal,
+  ufToClp,
+  clpToUf2
+} from '../../utils'
+import PropertiesServices from '../../services/properties/PropertiesServices';
+import { company } from '../../constants/company';
 
-const images = [
-  {
-    original: "https://picsum.photos/id/1018/1000/600/",
-    thumbnail: "https://picsum.photos/id/1018/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1015/1000/600/",
-    thumbnail: "https://picsum.photos/id/1015/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1019/1000/600/",
-    thumbnail: "https://picsum.photos/id/1019/250/150/",
-  },
-];
-
-const Modal = () => {
-  let [isOpen, setIsOpen] = useState(false)
+const Modal = ({item, valueUf}) => {
+  let [isOpen, setIsOpen] = useState(false);
+  const [propertyId, setPropertyId]= useState("")
 
   function closeModal() {
     setIsOpen(false)
@@ -38,6 +32,52 @@ const Modal = () => {
     GiHomeGarage,
     BsCheckCircle,
   } = iconsList;
+
+  const _renderItem = (name,code,price) => {
+    let ufValue = price;
+    let clpValue = price;
+
+    let valueIntUF = valueUf.Valor.replace(/\./g, '').replace(',', '.');
+
+    if (name === 'UF' && code === 'UF'){
+      clpValue = ufToClp(price,valueIntUF);
+    }
+    if (name === 'Peso Chileno' && code === 'CLP'){
+      ufValue = clpToUf2(price,valueIntUF);
+    }
+
+    return (
+      <>
+        <h4 className="text-xl text-gray-700 font-semibold">
+          UF: {parseToDecimal(ufValue)}
+        </h4>
+        <p>
+          CLP: {parseToCLPCurrency(clpValue)}
+        </p>
+      </>
+    )
+  };
+
+  const getPropertyForId= async (id, statusId, companyId)=>{
+    const data= await PropertiesServices.getProperty(id, statusId, companyId);
+    setPropertyId(data);
+  }
+  useEffect(()=>{
+    getPropertyForId(item.id, 1, company.companyId)
+  }, [item.id])
+  const getImages = () =>
+  propertyId?.images
+      ? propertyId?.images?.map((_, idx) => ({
+          original: `https://accion.panal.house//Imagenes//${
+            propertyId?.id
+          }//${idx + 1}.jpg`,
+          thumbnail: `https://accion.panal.house//Imagenes//${
+            propertyId?.id
+          }//${idx + 1}.jpg`,
+        }))
+      : [];
+
+
 
   return (
     <>
@@ -94,7 +134,7 @@ const Modal = () => {
                         as="h5"
                         className="text-base font-light lg:text-base mx-10 text-slate-400"
                       >
-                        Código de la propiedad 402
+                        Código de la propiedad {item.id}
                       </Dialog.Title>
                   </div>
                   <div className="mt-2">
@@ -109,7 +149,7 @@ const Modal = () => {
                       showBullets={false}
                       showThumbnails={true}
                       thumbnailPosition="bottom"
-                      items={images}
+                      items={getImages()}
                     />
 
                     <div className='flex flex-col md:flex-row'>
@@ -118,13 +158,13 @@ const Modal = () => {
                         <div className="">
                           <h5 className="text-lg font-bold">Título</h5>
                           <p className="text-gray-600 mt-2">
-                            Casa, 3 Dormitorios, 1 Baños, Superficie terreno 121 metros, Superficie construida 100 metros, 4 Orientación
+                          {item?.title}
                           </p>
                         </div>
                         <div className="my-7">
                           <h5 className="text-lg font-bold">Descripción</h5>
                           <p className="text-gray-600 mt-2">
-                            3 Total dormitorios, Total de baños 1 Los textos literarios son composiciones que persiguen un fin estético. Se trata de la creación de mundos a través del lenguaje, en los que prima la subjetividad, ya sea la expresión de sentimientos, compartir un punto de vista, hacer un retrato social, aludir a la memoria, a la identidad de los pueblos o a una cultura
+                          {item?.description}
                           </p>
                         </div>
                         <h1 className='text-lg font-bold'>Características</h1>
@@ -134,14 +174,14 @@ const Modal = () => {
                             <span className="text-primary-default mr-1">
                               <RiPencilRulerLine className='xl:w-[38px]'/>
                             </span>
-                            Superficie útil: 100m<sup>2</sup> útiles
+                            Superficie útil: {item?.surface_m2}m<sup>2</sup> útiles
                           </div>
 
                           <div className="flex items-center w-full my-1 text-gray-700 text-base font-medium order-2">
                             <span className="text-primary-default mr-1">
                               <FaBath className='xl:w-[38px]'/>
                             </span>
-                            Baños: 1
+                            Baños: {item?.bathrooms}
                           </div>
 
                           <div className="flex items-center w-full my-1 text-gray-700 text-base font-medium order-6 lg:order-3">
@@ -155,14 +195,14 @@ const Modal = () => {
                             <span className="text-primary-default mr-1">
                               <FaBed className='xl:w-[38px]'/>
                             </span>
-                            Dormitorios: 3
+                            Dormitorios: {item?.bedrooms}
                           </div>
 
                           <div className="flex items-center w-full my-1 text-gray-700 text-base font-medium order-5">
                             <span className="text-primary-default mr-1">
                               <GiHomeGarage className='xl:w-[38px]' />
                             </span>
-                            Estacionamientos: 0
+                            Estacionamientos: {item?.coveredParkingLots}
                           </div>
 
                           <div className="flex items-center w-full my-1 text-gray-700 text-base font-medium order-6">
@@ -176,39 +216,31 @@ const Modal = () => {
                       </div>
                       <div className="bg-white h-auto w-full md:w-1/4">
                         <div className="border rounded-sm p-4 xl:p-8 h-full">
-                          <h3 className="border-b pb-1 text-gray-800 text-xl font-bold">Empresa: Empresa1</h3>
+                          <h3 className="border-b pb-1 text-gray-800 text-xl font-bold">Empresa: {item?.company}</h3>
                           <p className="text-sm text-gray-400 my-2">
                             Publicado por:{' '}
                             <span className="text-gray-800">
-                              Company1
+                              {item?.realtor?.name}
                             </span>
                           </p>
 
                           <div className="text-sm text-gray-400 my-3">
                             <p className="text-gray-400">Desde</p>
-                                <>
-                                  <h4 className="text-xl text-gray-700 font-semibold">
-                                    UF 29.000
-                                  </h4>
-                                  <p>
-                                    CLP:{' '}
-                                    6.252.545.255
-                                  </p>
-                                </>
+                            {_renderItem(item?.currency?.name, item?.currency?.isoCode, item.price)}
                           </div>
 
                           <div className="my-5 text-sm text-gray-400">
                             <p className="flex items-center my-1 text-sm ">
                             Tipo de inmueble:
                               <span className="text-gray-800 mr-1 text-base font-normal pl-1">
-                              Casa
+                              {item?.types[0]}
                               </span> 
                             </p>
 
                             <p className="flex items-center my-1 text-sm ">
                               Tipo de operacion :
                               <span className="text-gray-800 mr-1 text-base font-normal pl-1">
-                              Venta
+                              {item?.operation}
                               </span> 
                             </p>
 
@@ -222,7 +254,6 @@ const Modal = () => {
                         </div>
                       </div>
                     </div>
-                    
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

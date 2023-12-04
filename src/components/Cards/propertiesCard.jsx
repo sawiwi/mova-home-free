@@ -114,7 +114,7 @@ const PropertiesCard = ({ item, valueUf }) => {
           </div>
 
           <div className='px-6 pb-3 w-full flex justify-end border-t pt-3'>
-            <Modal></Modal>
+            <Modal item={item} valueUf={valueUf}></Modal>
           </div>
 
           
