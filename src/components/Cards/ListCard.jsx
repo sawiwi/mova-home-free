@@ -100,7 +100,7 @@ const ListCard = ({item, valueUf}) => {
         <div className='md:w-1/3 flex flex-col justify-center px-5 md:px-0 lg:px-5 py-3'>
           {_renderItem(item?.currency?.name, item?.currency?.isoCode, item.price)}
           <div className='flex justify-center md:justify-end'>
-            <ModalList/>
+            <ModalList item={item} valueUf={valueUf}/>
           </div>
         </div>
       </div>
