@@ -4,7 +4,7 @@ export const company = {
     codigoUsuarioMaestro: 0,
   };
   
-  export const companyForm = {
-    id: 1,
-  };
-  
+export const companyForm = {
+  id: 1,
+};
+

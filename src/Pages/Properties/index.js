@@ -1,12 +1,31 @@
-import React,{ useState } from 'react'
+import React,{ useContext, useState, useEffect } from 'react'
 import PropertiesCard from '../../components/Cards/propertiesCard'
 import Pagination from '../../components/Pagination/pagination'
 import ListCard from '../../components/Cards/ListCard';
-
 import FilterProperties from './components/filterprop';
 
+/* Api */
+import { PropertiesContext } from '../../services/properties/PropertiesContext';
+import { company } from '../../constants/company';
+import { paginationTopLimit } from '../../constants/paginate';
+
 const Properties = () => {
+  const { contextData } = useContext(PropertiesContext);
+  const {
+    properties,
+    metaProperties,
+    fetchAllProperties,
+    valueUf,
+    page,
+    totalPages,
+    handlePageChange
+  } = contextData;
+
   const [isList, setList] = useState(false);
+
+  useEffect(() => {
+    fetchAllProperties(page, paginationTopLimit.limit, company.statusId, company.companyId);
+  }, []);
 
   return (
     <div id='PropertiesSectionScroll' className='min-h-screen'>
@@ -21,7 +40,7 @@ const Properties = () => {
           <div className="flex flex-wrap flex-row justify-between xl:justify-between items-center">
             <div className="flex flex-row justify-start">
               <p className="text-lg p-1 rounded text-[#7a7e86]">
-                Total Propiedades: 17
+                Total Propiedades: {metaProperties.totalItems}
               </p>
             </div>
             <div className="flex flex-row justify-end">
@@ -59,28 +78,28 @@ const Properties = () => {
         </div>
         {!isList ? (
           <div className='flex flex-wrap items-stretch'>
-            <PropertiesCard/>
-            <PropertiesCard/>
-            <PropertiesCard/>
-            <PropertiesCard/>
-            <PropertiesCard/>
-            <PropertiesCard/>
+            {properties && properties.map((item,index)=>(
+              <PropertiesCard key={index} item={item} valueUf={valueUf}/>
+            ))}
+            
           </div>
         ):(
           <div>
-            <ListCard/>
-            <ListCard/>
-            <ListCard/>
-            <ListCard/>
-            <ListCard/>
-            <ListCard/>
+            {properties && properties.map((item,index)=>(
+              <ListCard key={index} item={item} valueUf={valueUf}/>
+            ))}
+            
           </div>
         )}
         
 
         
         <div>
-          <Pagination/>
+          <Pagination                 
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         </div>
       </div>
     </div>
