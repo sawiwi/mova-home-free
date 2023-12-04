@@ -38,15 +38,12 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     if (currentPage > 1) {
       onPageChange(currentPage - 1);
     }
-
-    console.log(currentPage - 1)
   };
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       onPageChange(currentPage + 1);
     }
-    console.log(currentPage + 1)
   };
 
   return (
